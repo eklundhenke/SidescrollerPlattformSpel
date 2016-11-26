@@ -1,0 +1,211 @@
+body
+{
+  background-image: url("6.png");
+  background-repeat: repeat;
+}
+div.Main_Container
+{
+  margin-top: -30px;
+  height: 75vh;
+  width: 100%;
+    box-shadow: 15px 0px 40px black;
+}
+div.Header
+{
+  border-radius: 30;
+  position: absolute;
+  left: 5%;
+  margin-top: 25px;
+  font-size: 30px;
+  background-color: brown;
+  opacity: 0.6;
+  width: 43%;
+  text-align: center;
+  box-shadow: 15px 0px 40px black;
+  z-index: -1;
+}
+div.Header > h1
+{
+  margin-top: 20px;
+}
+a.button_left:hover
+{
+  background-color: blue;
+}
+a.button_right:hover
+{
+  background-color: blue;
+}
+img.download
+{
+  position: absolute;
+  right: 3%;
+  top: 20%;
+  width: 100px;
+  height: auto;
+  opacity: 0.6;
+}
+a.button_left
+{
+  position: absolute;
+  top: 50%;
+  left: 2%;
+  font-size: 60;
+  opacity: 0.7;
+  background-color: white;
+  border-radius: 40px;
+  padding: 10px;
+}
+a.button_right
+{
+  position: absolute;
+  top: 50%;
+  right: 2%;
+  font-size: 60;
+  opacity: 0.7;
+  background-color: white;
+  border-radius: 40px;
+  padding: 10px;
+}
+div.Main_Container > img
+{
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  width: 100%;
+}
+a.Headline
+{
+  margin-top: -0.7%;
+  width: 24.7%;
+  float: left;
+  opacity: 0.5;
+  height: 50px;
+  background-color: green;
+  border-style: solid;
+  border-width: 2px;
+  box-shadow: 15px 15px 40px black;
+  text-decoration: none;
+  color: black;
+}
+a.Headline:hover
+{
+  background-color: black;
+}
+div.first_set
+{
+}
+img.first_image
+{
+  box-shadow: 8px 8px 20px black;
+  position: absolute;
+  left: 10%;
+  width: 35%;
+  top: 113%;
+  margin: -40px 0;
+}
+
+div.text_first_image
+{
+  position: absolute;
+  right: 18%;
+  width: 30%;
+  margin-top: 3%;
+  text-align: center;
+}
+div.text_second_image
+{
+  position: absolute;
+  left: 18%;
+  margin-top: 4%;
+  width: 30%;
+  text-align: center;
+}
+img.second_image
+{
+  box-shadow: 8px 8px 20px black;
+  position: absolute;
+  right: 10%;
+  width: 35%;
+  top: 155%;
+  margin: -40px 0;
+}
+div.banner1
+{
+  -webkit-box-shadow: 0 0 20px #333;
+  box-shadow: 0 0 20px #333;
+  text-align: center;
+  margin: 40px 0;
+  width: 100%;
+  background: url('6.jpg') center 0 no-repeat fixed;
+  height: 30%;
+}
+div.banner_first_row
+{
+  background: url('7.png') center 0 repeat-x;
+  height: 30px;
+}
+div.banner2
+{
+  -webkit-box-shadow: 0 0 20px #333;
+  box-shadow: 0 0 20px #333;
+  text-align: center;
+  margin: 40px 0;
+  width: 100%;
+  background: url('6.jpg') center 0 no-repeat fixed;
+  height: 30%;
+}
+img.standing_block
+{
+  position: absolute;
+  margin-top: 30%;
+  margin-left:10%;
+  float: left;
+  -webkit-box-shadow: 0 0 20px #333;
+  box-shadow: 0 0 20px #333;
+  z-index: -1;
+}
+img.player
+{
+  position: absolute;
+  margin-left: 13%;
+  margin-top: 23.3%;
+  z-index: -1;
+}
+
+div.body_about
+{
+  margin-left: 24%;
+  margin-top: 10%;
+  -webkit-box-shadow: 0 0 20px #333;
+  box-shadow: 0 0 20px #333;
+  background: url('6.png') center 0 repeat;
+  height: 1000px;
+}
+
+div.Header_about
+{
+  position: absolute;
+  border-radius: 30;
+  right: 5%;
+  margin-top: -8%;
+  font-size: 30px;
+  background-color: brown;
+  opacity: 0.6;
+  width: 43%;
+  text-align: center;
+  box-shadow: 15px 0px 40px black;
+  z-index: -1;
+}
+
+div.body_about > h1
+{
+  text-align: center;
+}
+p.test
+{
+  position: absolute;
+  left: 40%;
+  width: 50%;
+}

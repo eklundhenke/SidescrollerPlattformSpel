@@ -1,0 +1,2 @@
+all:
+	g++ main.cpp InputManager.cpp SFMLRender.cpp MainMenuScene.cpp SFMLSprite.cpp Entity.cpp GameScene.cpp MapTile.cpp MapManager.cpp SFMLText.cpp GameOverScene.cpp TimeLeft.cpp PauseScene.cpp -o Game -I/usr/local/include -L/usr/local/lib -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system -std=c++11 -Wall -pedantic 
