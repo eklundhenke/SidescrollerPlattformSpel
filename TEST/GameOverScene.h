@@ -8,6 +8,8 @@
 #include <chrono>
 class GameOverScene : public Scene {
 public:
+  bool winOrLose = false; //true if win condition
+  int score = 0;
   GameOverScene(InputManager& input); //Constructor
   void renderScene(SFMLRender* render, float deltaTime); //render logic
   SCENES updateScene(float deltaTime); //Scene logic
@@ -20,6 +22,8 @@ public:
     text.setPosition(spriteRect.left + (spriteRect.width/2)-(textRect.width/2),
      spriteRect.top + (spriteRect.height/2) - (textRect.height/2)-15);
   }
+void getCondition(bool condition){winOrLose = condition; };
+void getScore (int time){score = time;}
 
 private:
   InputManager& inputmgr; //Provides access to inputs
@@ -31,8 +35,11 @@ private:
   SFMLTexture buttonTextureMarked{"green_button_marked.png"};
 
 
-  SFMLText titelText{"Game Over",
+  SFMLText loserText{"Game Over",
   (float)(APPLICATION_WIDTH/2 - 200),40, 60}; //titel text
+  SFMLText winText{"You Win!",
+  (float)(APPLICATION_WIDTH/2 - 150),40, 60};
+
   SFMLText mainMenuText{"Main Menu",0,0, 35};
   SFMLText exitText{"Exit",0,0, 35};
 

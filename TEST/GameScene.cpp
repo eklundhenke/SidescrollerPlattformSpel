@@ -17,10 +17,22 @@ GameScene::GameScene(InputManager& input, bool multiplayer) : Scene{GAMESCENE}, 
   coins.push_back(Coin{coinTexture, 87 * TILE_SIZE, 13 * TILE_SIZE});
   coins.push_back(Coin{coinTexture, 129 * TILE_SIZE, 6 * TILE_SIZE});
   coins.push_back(Coin{coinTexture, 181 * TILE_SIZE, 6 * TILE_SIZE});
-  keys.push_back(Key(keyTexture, 17 * TILE_SIZE, 4 * TILE_SIZE, mapmgr.getTilePtrAtPosition(15 * TILE_SIZE,7 * TILE_SIZE), mapmgr.getTilePtrAtPosition(14 * TILE_SIZE,7 * TILE_SIZE), mapmgr.getTilePtrAtPosition(16 * TILE_SIZE,7 * TILE_SIZE)));
-  keys.push_back(Key(keyTexture, 137* TILE_SIZE, 1 * TILE_SIZE, mapmgr.getTilePtrAtPosition(128 * TILE_SIZE, 5 * TILE_SIZE), mapmgr.getTilePtrAtPosition(129 * TILE_SIZE, 5 * TILE_SIZE), mapmgr.getTilePtrAtPosition(130 * TILE_SIZE, 5 * TILE_SIZE)));
-  keys.push_back(Key(keyTexture, 196* TILE_SIZE, 12 * TILE_SIZE, mapmgr.getTilePtrAtPosition(201 * TILE_SIZE, 8 * TILE_SIZE), mapmgr.getTilePtrAtPosition(201 * TILE_SIZE, 7 * TILE_SIZE), mapmgr.getTilePtrAtPosition(201 * TILE_SIZE, 6 * TILE_SIZE)));
-  keys.push_back(Key(keyTexture, 196* TILE_SIZE, 12 * TILE_SIZE, mapmgr.getTilePtrAtPosition(201 * TILE_SIZE, 5 * TILE_SIZE), mapmgr.getTilePtrAtPosition(201 * TILE_SIZE, 4 * TILE_SIZE), mapmgr.getTilePtrAtPosition(201 * TILE_SIZE, 3 * TILE_SIZE)));
+  keys.push_back(Key(keyTexture, 17 * TILE_SIZE, 4 * TILE_SIZE,
+     mapmgr.getTilePtrAtPosition(15 * TILE_SIZE,7 * TILE_SIZE),
+     mapmgr.getTilePtrAtPosition(14 * TILE_SIZE,7 * TILE_SIZE),
+     mapmgr.getTilePtrAtPosition(16 * TILE_SIZE,7 * TILE_SIZE)));
+  keys.push_back(Key(keyTexture, 137* TILE_SIZE, 1 * TILE_SIZE,
+     mapmgr.getTilePtrAtPosition(128 * TILE_SIZE, 5 * TILE_SIZE),
+     mapmgr.getTilePtrAtPosition(129 * TILE_SIZE, 5 * TILE_SIZE),
+     mapmgr.getTilePtrAtPosition(130 * TILE_SIZE, 5 * TILE_SIZE)));
+  keys.push_back(Key(keyTexture, 196* TILE_SIZE, 12 * TILE_SIZE,
+     mapmgr.getTilePtrAtPosition(201 * TILE_SIZE, 8 * TILE_SIZE),
+     mapmgr.getTilePtrAtPosition(201 * TILE_SIZE, 7 * TILE_SIZE),
+     mapmgr.getTilePtrAtPosition(201 * TILE_SIZE, 6 * TILE_SIZE)));
+  keys.push_back(Key(keyTexture, 196* TILE_SIZE, 12 * TILE_SIZE,
+     mapmgr.getTilePtrAtPosition(201 * TILE_SIZE, 5 * TILE_SIZE),
+     mapmgr.getTilePtrAtPosition(201 * TILE_SIZE, 4 * TILE_SIZE),
+     mapmgr.getTilePtrAtPosition(201 * TILE_SIZE, 3 * TILE_SIZE)));
 
 }
 
@@ -84,6 +96,8 @@ void GameScene::renderScene(SFMLRender* render, float deltaTime)
   render->drawSprite(goalSprite);//render the goal
   if (gameOver == true && gameOverOrPaused == 2) //if game over render gameoverscene
   {
+    gameOverScene->getScore(timeLeftText.get_remTime());
+    gameOverScene->getCondition(winOrLose);
     gameOverScene->renderScene(render, deltaTime);
   }
   if (notPaused == false && gameOverOrPaused == 1) //if ESCAPE is pressed render PauseScene
@@ -162,6 +176,7 @@ if(notPaused)
   if (goalSprite.logic(playerOne, playerTwo))
   {
     goalSprite.setGoal(true);
+    winOrLose = true;
     gameOver = true;
     notPaused = false;
     gameOverOrPaused = 2;

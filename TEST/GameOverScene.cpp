@@ -4,6 +4,10 @@ GameOverScene::GameOverScene(InputManager& input) : Scene{GAMEOVERSCENE}, inputm
 
 void GameOverScene::renderScene(SFMLRender* render, float deltaTime)
 {
+  //the score text is here, so that we have a updated score when its called
+  SFMLText scoreText{"Your score : " + std::to_string(score),
+  (float)(APPLICATION_WIDTH/2 - 150) , 100};
+
   //Reset camera position (Needed if we return from gamescene)
   render->setCameraPosition(APPLICATION_WIDTH / 2, APPLICATION_HEIGHT /2);
 
@@ -16,9 +20,16 @@ void GameOverScene::renderScene(SFMLRender* render, float deltaTime)
 
   // Draw the marker
   render->drawSprite(keyMarker);
+// Draw text
+if (winOrLose == false)//renders Game over if the player lost
+{
+    render->drawText(loserText);
+}
+else {
+  render->drawText(winText);
+  render->drawText(scoreText);
+}
 
-  // Draw text
-  render->drawText(titelText);
   render->drawText(mainMenuText);
   render->drawText(exitText);
   //center text in buttons

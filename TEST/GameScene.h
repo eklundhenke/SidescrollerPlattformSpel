@@ -27,6 +27,7 @@ private:
   void cameraHandling();
   void dead(Player& player);
   bool gameOver = false;
+  bool winOrLose = false; //true if win
   int gameOverOrPaused = 0; //sets to 2 if gameover 1 if paus
   bool notPaused = true;
   std::vector<Snail> enemies;
@@ -79,7 +80,7 @@ private:
   //Sprites and UI
   SFMLSprite backgroundSprite{backgroundTexture, APPLICATION_WIDTH - 150, 0};
   TimeLeft timeLeftText{remainingTime};
-  Goal goalSprite {goalPost, 26 * TILE_SIZE, 8 * TILE_SIZE};
+  Goal goalSprite {goalPost, 220 * TILE_SIZE, 2 * TILE_SIZE};
   HealthDisplay healthDisplay{healthDisplayTexture};
   Player playerOne{playerOneTexture, playerOneTextureJump, playerOneWalkAnimation, 800, 400, 1};
   Player playerTwo{playerTwoTexture, playerTwoTextureJump, playerTwoWalkAnimation, 900, 400, 2};
