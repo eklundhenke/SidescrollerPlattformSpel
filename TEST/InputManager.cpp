@@ -1,6 +1,7 @@
 #include "InputManager.h"
 #include "iostream"
 bool InputManager::isKeyPressed(KEYS key){
+	if (!inputsEnabled) return false;
   switch(key){
     case UP:
     return sf::Keyboard::isKeyPressed(sf::Keyboard::Up);

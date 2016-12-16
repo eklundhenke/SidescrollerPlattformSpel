@@ -14,7 +14,7 @@ void MapManager::loadMapFromFile(std::string filePath){
   std::ifstream file;
   file.open("map.txt", std::ifstream::in);
   int type;
-  int x, y = 0;
+  int x = 0, y = 0;
   int tileCount = 0;
   if(file.is_open()){
     while(file >> type){

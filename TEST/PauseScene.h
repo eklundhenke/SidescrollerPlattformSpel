@@ -21,7 +21,6 @@ public:
   }
 
 private:
-  InputManager& inputmgr; //Provides access to inputs
   SFMLTexture backgroundTexture{"background.png"};
   SFMLTexture keyTexture{"Items/keyYellow.png"}; //Button selecter
   //Non Marked Button Texture

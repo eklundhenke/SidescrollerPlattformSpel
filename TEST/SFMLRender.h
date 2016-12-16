@@ -14,7 +14,7 @@ private:
 public:
   SFMLRender();
 
-  bool processEvents(); //Process all inputEvents and returns true if user has requested to exit the program
+  bool processEvents(Scene* current_scene); //Process all inputEvents and returns true if user has requested to exit the program
 
   void clearFrame(); //Clear old frame
 

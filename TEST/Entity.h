@@ -23,9 +23,9 @@ protected:
   {
     if(flip && !flipped)
     {
-      setTextureRect(sf::IntRect(getLocalBounds().width, 0, getLocalBounds().width * -1, getLocalBounds().height));
+      setTextureRect(sf::IntRect((int)getLocalBounds().width, 0, (int)getLocalBounds().width * -1, (int)getLocalBounds().height));
     }else if(!flip && flipped){
-      setTextureRect(sf::IntRect(0, 0, getLocalBounds().width, getLocalBounds().height));
+      setTextureRect(sf::IntRect(0, 0, (int)getLocalBounds().width, (int)getLocalBounds().height));
     }
     flipped = flip;
   }

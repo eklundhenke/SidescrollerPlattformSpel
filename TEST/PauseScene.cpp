@@ -1,6 +1,6 @@
 #include "PauseScene.h"
 #include "SFMLRender.h"
-PauseScene::PauseScene(InputManager& input) : Scene{PAUSESCENE}, inputmgr{input}{}
+PauseScene::PauseScene(InputManager& input) : Scene{PAUSESCENE, input}{}
 
 void PauseScene::renderScene(SFMLRender* render, float deltaTime)
 {

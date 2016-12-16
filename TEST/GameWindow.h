@@ -19,7 +19,7 @@ public:
     current_scene = new MainMenuScene(inputmgr); //Show MainMenu
 
     while(render.windowIsOpen()){ //Loop untill program window is closed
-      bool exitRequested = render.processEvents(); //Process inputs
+      bool exitRequested = render.processEvents(current_scene); //Process inputs
       float deltaTime = timeMgr.getTimeAndRestart().asSeconds(); //Calculate deltaTime
       SCENES result = current_scene->updateScene(deltaTime); //run current scene logic
       if(result == GAMESCENE && inputmgr.isKeyPressed(F5)){

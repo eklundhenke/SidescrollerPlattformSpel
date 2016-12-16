@@ -1,6 +1,6 @@
 #include "GameScene.h"
 #include "SFMLRender.h"
-GameScene::GameScene(InputManager& input, bool multiplayer) : Scene{GAMESCENE}, inputmgr{input}, multiplayer{multiplayer}
+GameScene::GameScene(InputManager& input, bool multiplayer) : Scene{GAMESCENE, input}, multiplayer{multiplayer}
 {
   //Spawns enemies and coins
   enemies.push_back(Snail{snailWalk1, snailWalk2, 19 * TILE_SIZE, 9 * TILE_SIZE, 6 * 70, false});
@@ -9,22 +9,26 @@ GameScene::GameScene(InputManager& input, bool multiplayer) : Scene{GAMESCENE}, 
   enemies.push_back(Snail{snailWalk1, snailWalk2, 161 * TILE_SIZE, 11 * TILE_SIZE, 7 * 70, false});
   enemies.push_back(Snail{snailWalk1, snailWalk2, 179 * TILE_SIZE, 10 * TILE_SIZE, 4 * 70, false});
   enemies.push_back(Snail{snailWalk1, snailWalk2, 189 * TILE_SIZE, 10 * TILE_SIZE, 6 * 70, false});
-  enemies.push_back(Snail{snailWalk1, snailWalk2, 200 * TILE_SIZE, 10 * TILE_SIZE, 6 * 70, false});
+  enemies.push_back(Snail{snailWalk1, snailWalk2, 200 * TILE_SIZE, 10 * TILE_SIZE, 4 * 70, false});
   coins.push_back(Coin{coinTexture, 15 * TILE_SIZE, 8 * TILE_SIZE});
   coins.push_back(Coin{coinTexture, 30 * TILE_SIZE, 8 * TILE_SIZE});
   coins.push_back(Coin{coinTexture, 63 * TILE_SIZE, 3 * TILE_SIZE});
   coins.push_back(Coin{coinTexture, 86 * TILE_SIZE, 13 * TILE_SIZE});
   coins.push_back(Coin{coinTexture, 87 * TILE_SIZE, 13 * TILE_SIZE});
+  coins.push_back(Coin{coinTexture, 129 * TILE_SIZE, 5 * TILE_SIZE});
   coins.push_back(Coin{coinTexture, 129 * TILE_SIZE, 6 * TILE_SIZE});
+  coins.push_back(Coin{coinTexture, 129 * TILE_SIZE, 7 * TILE_SIZE});
   coins.push_back(Coin{coinTexture, 181 * TILE_SIZE, 6 * TILE_SIZE});
+  coins.push_back(Coin{coinTexture, 180 * TILE_SIZE, 6 * TILE_SIZE});
+  coins.push_back(Coin{coinTexture, 195 * TILE_SIZE, 13 * TILE_SIZE});
   keys.push_back(Key(keyTexture, 17 * TILE_SIZE, 4 * TILE_SIZE,
      mapmgr.getTilePtrAtPosition(15 * TILE_SIZE,7 * TILE_SIZE),
      mapmgr.getTilePtrAtPosition(14 * TILE_SIZE,7 * TILE_SIZE),
      mapmgr.getTilePtrAtPosition(16 * TILE_SIZE,7 * TILE_SIZE)));
   keys.push_back(Key(keyTexture, 137* TILE_SIZE, 1 * TILE_SIZE,
-     mapmgr.getTilePtrAtPosition(128 * TILE_SIZE, 5 * TILE_SIZE),
+     mapmgr.getTilePtrAtPosition(129 * TILE_SIZE, 4 * TILE_SIZE),
      mapmgr.getTilePtrAtPosition(129 * TILE_SIZE, 5 * TILE_SIZE),
-     mapmgr.getTilePtrAtPosition(130 * TILE_SIZE, 5 * TILE_SIZE)));
+     mapmgr.getTilePtrAtPosition(129 * TILE_SIZE, 6 * TILE_SIZE)));
   keys.push_back(Key(keyTexture, 196* TILE_SIZE, 12 * TILE_SIZE,
      mapmgr.getTilePtrAtPosition(201 * TILE_SIZE, 8 * TILE_SIZE),
      mapmgr.getTilePtrAtPosition(201 * TILE_SIZE, 7 * TILE_SIZE),
@@ -94,10 +98,10 @@ void GameScene::renderScene(SFMLRender* render, float deltaTime)
     render->drawSprite(healthDisplay);
   }
   render->drawSprite(goalSprite);//render the goal
+//  render->drawSprite(testGoalSpirit);//remove when done testing
   if (gameOver == true && gameOverOrPaused == 2) //if game over render gameoverscene
   {
-    gameOverScene->getScore(timeLeftText.get_remTime());
-    gameOverScene->getCondition(winOrLose);
+    gameOverScene->setCondition(winOrLose);
     gameOverScene->renderScene(render, deltaTime);
   }
   if (notPaused == false && gameOverOrPaused == 1) //if ESCAPE is pressed render PauseScene
@@ -176,6 +180,9 @@ if(notPaused)
   if (goalSprite.logic(playerOne, playerTwo))
   {
     goalSprite.setGoal(true);
+  //  testGoalSpirit.setGoal(true);//remove after testing is done
+    gameOverScene->setScore(timeLeftText.get_remTime());//gets the score time
+    gameOverScene->getHighScore();//reads and write the highscore file
     winOrLose = true;
     gameOver = true;
     notPaused = false;
@@ -274,7 +281,22 @@ void GameScene::dead(Player& player)
     {
       player.getTmp_x() = camera_x - APPLICATION_WIDTH/2 + 100;
     }
-    player.setPosition(player.getTmp_x(), player.getTmp_y() - 500);
+    if(!player.getDeathByFalling())
+    {
+      player.setPosition(player.getTmp_x(), player.getTmp_y() - 800);
+    }
+    else
+    {
+      if(player.get_right())
+      {
+        player.setPosition(player.getTmp_x()-TILE_SIZE, player.getTmp_y());
+      }
+      else
+      {
+        player.setPosition(player.getTmp_x()+TILE_SIZE, player.getTmp_y());
+      }
+      player.getDeathByFalling() = false;
+    }
   }
   else
   {
@@ -295,6 +317,7 @@ void GameScene::playerMovement(Player& player, float deltaTime)
       player.yVelocity = 0;
       player.xVelocity = 0;
       player.getDead() = true;
+      player.getDeathByFalling() = true;
       camera_x = player.getPosition().x;
       if(player.getOneorTwo() == 2)
       {
@@ -317,7 +340,23 @@ void GameScene::playerMovement(Player& player, float deltaTime)
         player.jump();
       }
     }
-    player.getTmp_x() = player.getPosition().x - 10;
+    if(inputmgr.isKeyPressed(RIGHT) && !inputmgr.isKeyPressed(LEFT))
+    {
+      playerOne.get_right() = true;
+    }
+    else if(inputmgr.isKeyPressed(LEFT) && !inputmgr.isKeyPressed(RIGHT))
+    {
+      playerOne.get_right() = false;
+    }
+    if(inputmgr.isKeyPressed(D) && !inputmgr.isKeyPressed(A))
+    {
+      playerTwo.get_right() = true;
+    }
+    else if(inputmgr.isKeyPressed(A) && !inputmgr.isKeyPressed(D))
+    {
+      playerTwo.get_right() = false;
+    }
+    player.getTmp_x() = player.getPosition().x;
     player.getTmp_y() = player.getPosition().y - 10;
   }
 

@@ -7,5 +7,7 @@ class InputManager{
 public:
   InputManager(){};
   bool isKeyPressed(KEYS key); //Returns true if key pressed
-
+  void enableInputs(bool enable) { inputsEnabled = enable; }
+private:
+	bool inputsEnabled{true};
 };

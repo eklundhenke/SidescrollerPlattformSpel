@@ -19,9 +19,8 @@ public:
   	text.setPosition(spriteRect.left + (spriteRect.width/2)-(textRect.width/2),
   	 spriteRect.top + (spriteRect.height/2) - (textRect.height/2)-15);
   }
-
+  void keyPress(sf::Keyboard::Key key);
 private:
-  InputManager& inputmgr; //Provides access to inputs
   SFMLTexture backgroundTexture{"background.png"};
   SFMLTexture keyTexture{"Items/keyYellow.png"}; //Button selecter
   //Non Marked Button Texture
@@ -53,6 +52,6 @@ private:
   SFMLSprite exitButton{buttonTextureNotMarked,
    (float)(APPLICATION_WIDTH/2 - buttonTextureNotMarked.getSize().x/2),
     (float)(buttonTextureNotMarked.getSize().y *5 +50)};
-
+  SCENES returnValue{MAINMENUSCENE};
 
 };

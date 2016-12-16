@@ -5,7 +5,7 @@
 class Snail : public Entity{
 private:
   const float maxSpeed = 2;
-  const int scaleFactor = 2; //We want big snails
+  const float scaleFactor = 2; //We want big snails
   SFMLTexture& texture_walk1;
   SFMLTexture& texture_walk2;
   unsigned walkDistance;
@@ -54,7 +54,7 @@ public:
       xVelocity = maxSpeed * -1;
     }
 
-    walkedDistance += fabs(xVelocity); //float absolute value
+    walkedDistance += (unsigned)fabs(xVelocity); //float absolute value
     //Check if we should turn back
     if(walkedDistance > walkDistance){
       walkedDistance = 0;

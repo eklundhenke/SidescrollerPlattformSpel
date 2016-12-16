@@ -6,13 +6,14 @@
 #include "SFMLTexture.h"
 #include "SFMLText.h"
 #include <chrono>
+#include <fstream>
+#include <vector>
 class GameOverScene : public Scene {
 public:
-  bool winOrLose = false; //true if win condition
-  int score = 0;
   GameOverScene(InputManager& input); //Constructor
   void renderScene(SFMLRender* render, float deltaTime); //render logic
   SCENES updateScene(float deltaTime); //Scene logic
+  void getHighScore();
   std::chrono::high_resolution_clock::time_point start_time;
   //centers the text inside the buttons
   void centerText(SFMLText& text, SFMLSprite& sprite)
@@ -22,11 +23,15 @@ public:
     text.setPosition(spriteRect.left + (spriteRect.width/2)-(textRect.width/2),
      spriteRect.top + (spriteRect.height/2) - (textRect.height/2)-15);
   }
-void getCondition(bool condition){winOrLose = condition; };
-void getScore (int time){score = time;}
+void setCondition(bool condition){winOrLose = condition; };
+void setScore (int time){score = time;};
+bool getCondition(){return winOrLose;};
+int getScore(){return score;};
 
 private:
-  InputManager& inputmgr; //Provides access to inputs
+  std::vector<int> highScoreVector;
+  bool winOrLose = false; //true if win condition
+  int score = 0;
   SFMLTexture backgroundTexture {"backgroundRect.png"};//rect background
   SFMLTexture keyTexture{"Items/keyYellow.png"}; //Button selecter
   //Non Marked Button Texture
@@ -39,6 +44,7 @@ private:
   (float)(APPLICATION_WIDTH/2 - 200),40, 60}; //titel text
   SFMLText winText{"You Win!",
   (float)(APPLICATION_WIDTH/2 - 150),40, 60};
+
 
   SFMLText mainMenuText{"Main Menu",0,0, 35};
   SFMLText exitText{"Exit",0,0, 35};

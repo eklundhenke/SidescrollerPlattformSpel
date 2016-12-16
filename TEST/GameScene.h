@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "Scene.h"
 #include "MapManager.h"
 #include "InputManager.h"
@@ -34,9 +35,8 @@ private:
   std::vector<Coin> coins;
   std::vector<Key> keys;
   MapManager mapmgr{"map.txt"}; //Map module
-  InputManager& inputmgr; //Provides access to inputs
   bool multiplayer;
-  int remainingTime {200};
+  int remainingTime {60};
   GameOverScene *gameOverScene = new GameOverScene(inputmgr);
   PauseScene *pausescene = new PauseScene(inputmgr);
 
@@ -80,7 +80,8 @@ private:
   //Sprites and UI
   SFMLSprite backgroundSprite{backgroundTexture, APPLICATION_WIDTH - 150, 0};
   TimeLeft timeLeftText{remainingTime};
-  Goal goalSprite {goalPost, 220 * TILE_SIZE, 2 * TILE_SIZE};
+  Goal goalSprite {goalPost, 283 * TILE_SIZE, 5 * TILE_SIZE};
+//  Goal testGoalSpirit {goalPost, 12 * TILE_SIZE, 4 * TILE_SIZE};//remove when done testing
   HealthDisplay healthDisplay{healthDisplayTexture};
   Player playerOne{playerOneTexture, playerOneTextureJump, playerOneWalkAnimation, 800, 400, 1};
   Player playerTwo{playerTwoTexture, playerTwoTextureJump, playerTwoWalkAnimation, 900, 400, 2};

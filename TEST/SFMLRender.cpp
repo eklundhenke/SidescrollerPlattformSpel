@@ -3,7 +3,7 @@
 #include "DebugInfo.h"
 #include "SFML/Window/VideoMode.hpp"
 #include "SFML/System/Vector2.hpp"
-  SFMLRender::SFMLRender() : window{sf::VideoMode(APPLICATION_WIDTH, APPLICATION_HEIGHT), APPLICATION_NAME}{
+  SFMLRender::SFMLRender() : window{sf::VideoMode((int)APPLICATION_WIDTH, (int)APPLICATION_HEIGHT), APPLICATION_NAME}{
     //window.setFramerateLimit(APPLICATION_LIMIT_FPS);
     window.setVerticalSyncEnabled(APPLICATION_VERTICAL_SYNC_ENABLE);
     window.setPosition(sf::Vector2<int>(sf::VideoMode::getDesktopMode().width/2-APPLICATION_WIDTH/2, sf::VideoMode::getDesktopMode().height/2-APPLICATION_HEIGHT/2));
@@ -11,12 +11,19 @@
     window.setKeyRepeatEnabled(false);
   }
 
-  bool SFMLRender::processEvents(){
+  bool SFMLRender::processEvents(Scene* current_scene){
     sf::Event event;
     while (window.pollEvent(event)){ //Loop through event queue
-      if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) || event.type == sf::Event::Closed){ //If window X is clicked or ESCAPE is pressed
-        return true;
-      }
+		if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) || event.type == sf::Event::Closed) { //If window X is clicked or ESCAPE is pressed
+			return true;
+		}
+		else if (event.type == sf::Event::GainedFocus || event.type == sf::Event::LostFocus) {
+			current_scene->changedFocus(window.hasFocus());
+		}
+		
+		if (event.type == sf::Event::KeyPressed) {
+			current_scene->keyPress(event.key.code);
+		}
     }
     return false;
   }
